@@ -10,7 +10,7 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: url('background.jpg') center/cover no-repeat fixed, linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+      background: url('backgroundhalbi.jpg') center/cover no-repeat fixed, linear-gradient(180deg, #0f2027, #203a43, #2c5364);
       color: white;
       text-align: center;
       overflow-x: hidden;
@@ -130,8 +130,8 @@
   <img class="ornament lantern" src="https://cdn-icons-png.flaticon.com/512/3176/3176293.png" />
 
   <!-- MUSIK INSTRUMEN ISLAMIC -->
-  <audio id="halbirt09" loop>
-    <source src="https://pixabay.com/id/music/pukulan-yg-tdk-keras-arabic-arabic-ramadan-music-480053/" type="audio/mp3">
+  <audio id="takbiran" loop>
+    <source src="halbirt09.mp3" type="audio/mpeg">
   </audio>
 
   <!-- AMPLOP -->
@@ -149,7 +149,7 @@
 
     <div class="card">
       <p><strong>Tanggal:</strong> 11 April 2026</p>
-      <p><strong>Waktu:</strong> 19.30 WIB</p>
+      <p><strong>Waktu:</strong> 08.00 WIB</p>
       <p><strong>Lokasi:</strong><br>Jl. Kalimaya Barat, Klipang Green 2 RT 09</p>
 
       <div class="countdown" id="countdown"></div>
@@ -184,7 +184,16 @@
 
     envelope.addEventListener('click', () => {
       envelope.classList.add('open');
-      music.play();
+
+      // coba putar musik setelah interaksi pengguna
+      music.muted = false;
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          console.log('Autoplay diblokir browser, menunggu interaksi tambahan');
+        });
+      }
+
       setTimeout(() => {
         screen.style.display = 'none';
         content.style.display = 'block';
