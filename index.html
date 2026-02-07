@@ -160,9 +160,30 @@
       50% { opacity: 1; }
       to { transform: translateY(-10vh) scale(1); opacity: 0; }
     }
+  /* VIDEO PARTICLE OVERLAY */
+    .particle-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: screen;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
   </style>
 </head>
 <body>
+
+  <!-- VIDEO PARTICLE GREEN SCREEN -->
+  <video class="particle-video" autoplay muted loop playsinline>
+    <source src="particle.mp4" type="video/mp4">
+  </video>
+
+  <!-- ORNAMEN -->
+  <img class="ornament mosque" src="https://cdn-icons-png.flaticon.com/512/3176/3176363.png" />
+  <img class="ornament lantern" src="https://cdn-icons-png.flaticon.com/512/3176/3176293.png" />
 
   <!-- MUSIK INSTRUMEN ISLAMIC -->
   <audio id="takbiran" loop>
@@ -193,9 +214,9 @@
     </div>
 
     <div class="card">
-      <h3>Galeri Kegiatan Halal bi Halal 2025</h3>
+      <h3>Galeri Kegiatan Halal bi Halal</h3>
       <div class="gallery-modern" id="gallery"></div>
-      <p style="opacity:0.7; margin-top:10px; font-size:0.9rem;"></p>
+      <p style="opacity:0.7; margin-top:10px; font-size:0.9rem;">Tambahkan file foto1.jpg, foto2.jpg, foto3.jpg di repository GitHub agar tampil di galeri.</p>
     </div>
 
     <div class="card">
