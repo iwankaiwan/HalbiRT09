@@ -36,7 +36,7 @@
     .envelope-screen {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, #1b4332, #081c15);
+      background: linear-gradient(rgba(15,32,39,0.85), rgba(44,83,100,0.9)), url('backgroundhalbi.jpg') center/cover no-repeat fixed;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -121,6 +121,45 @@
     }
 
     footer { margin-top: 40px; opacity: 0.7; font-size: 0.9rem; }
+
+    /* GALERI MODERN */
+    .gallery-modern {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .gallery-modern img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 14px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .gallery-modern img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    }
+  /* GEMERLAP CAHAYA */
+    .sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 215, 0, 0.8);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255,215,0,0.9);
+      animation: sparkleMove linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes sparkleMove {
+      from { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      50% { opacity: 1; }
+      to { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -158,6 +197,12 @@
     </div>
 
     <div class="card">
+      <h3>Galeri Kegiatan Halal bi Halal</h3>
+      <div class="gallery-modern" id="gallery"></div>
+      <p style="opacity:0.7; margin-top:10px; font-size:0.9rem;">Tambahkan file foto1.jpg, foto2.jpg, foto3.jpg di repository GitHub agar tampil di galeri.</p>
+    </div>
+
+    <div class="card">
       <h3>RSVP Kehadiran</h3>
       <input type="text" id="nama" placeholder="Nama Anda" />
       <select id="jumlah">
@@ -184,15 +229,9 @@
 
     envelope.addEventListener('click', () => {
       envelope.classList.add('open');
-
-      // coba putar musik setelah interaksi pengguna
       music.muted = false;
       const playPromise = music.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          console.log('Autoplay diblokir browser, menunggu interaksi tambahan');
-        });
-      }
+      if (playPromise !== undefined) playPromise.catch(() => {});
 
       setTimeout(() => {
         screen.style.display = 'none';
@@ -216,6 +255,84 @@
       countdown.innerHTML = `${d} hari ${h} jam ${m} menit ${s} detik`;
     }, 1000);
 
+    // AUTO LOAD FOTO GALERI
+    const gallery = document.getElementById('gallery');
+    const totalFoto = 30;
+    let currentIndex = 0;
+    const images = [];
+
+    for (let i = 1; i <= totalFoto; i++) {
+      const img = new Image();
+      img.src = `foto${i}.jpg`;
+      img.alt = `Kegiatan ${i}`;
+
+      img.onload = () => {
+        const index = images.length;
+        images.push(img.src);
+
+        img.addEventListener('click', () => openLightbox(index));
+        gallery.appendChild(img);
+      };
+    }
+
+    // LIGHTBOX
+    const lightbox = document.createElement('div');
+    lightbox.style.cssText = `
+      position:fixed; inset:0; background:rgba(0,0,0,0.9);
+      display:none; align-items:center; justify-content:center;
+      z-index:1000; flex-direction:column;
+    `;
+
+    const lightImg = document.createElement('img');
+    lightImg.style.cssText = `max-width:90%; max-height:80%; border-radius:16px;`;
+
+    const nav = document.createElement('div');
+    nav.style.cssText = `margin-top:20px; display:flex; gap:20px;`;
+
+    const btnPrev = document.createElement('button');
+    btnPrev.textContent = '◀';
+    const btnNext = document.createElement('button');
+    btnNext.textContent = '▶';
+
+    [btnPrev, btnNext].forEach(btn => {
+      btn.style.cssText = `
+        font-size:24px; padding:10px 16px; border:none; border-radius:12px;
+        background:#ffd369; cursor:pointer;
+      `;
+    });
+
+    nav.appendChild(btnPrev);
+    nav.appendChild(btnNext);
+    lightbox.appendChild(lightImg);
+    lightbox.appendChild(nav);
+    document.body.appendChild(lightbox);
+
+    function openLightbox(index) {
+      currentIndex = index;
+      lightImg.src = images[currentIndex];
+      lightbox.style.display = 'flex';
+    }
+
+    function showNext(step) {
+      currentIndex = (currentIndex + step + images.length) % images.length;
+      lightImg.src = images[currentIndex];
+    }
+
+    btnPrev.onclick = () => showNext(-1);
+    btnNext.onclick = () => showNext(1);
+
+    lightbox.onclick = (e) => {
+      if (e.target === lightbox) lightbox.style.display = 'none';
+    };
+
+    // SWIPE HP
+    let startX = 0;
+    lightbox.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+    lightbox.addEventListener('touchend', e => {
+      const diff = e.changedTouches[0].clientX - startX;
+      if (Math.abs(diff) > 50) showNext(diff < 0 ? 1 : -1);
+    });
+
     function kirimWA() {
       const nama = document.getElementById('nama').value;
       const jumlah = document.getElementById('jumlah').value;
@@ -224,5 +341,17 @@
     }
   </script>
 
+  <script>
+    // GENERATE GEMERLAP CAHAYA
+    const sparkleCount = 25;
+    for (let i = 0; i < sparkleCount; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.animationDuration = (6 + Math.random() * 6) + 's';
+      s.style.animationDelay = Math.random() * 6 + 's';
+      document.body.appendChild(s);
+    }
+  </script>
 </body>
 </html>
