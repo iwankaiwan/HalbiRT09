@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Halal bi Halal RT 09</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('background.jpg') center/cover no-repeat fixed, linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* ORNAMEN */
+    .ornament {
+      position: fixed;
+      width: 80px;
+      opacity: 0.25;
+      animation: float 6s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .mosque { bottom: 10px; left: 10px; }
+    .lantern { top: 10px; right: 20px; animation-duration: 8s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .envelope-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #1b4332, #081c15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      flex-direction: column;
+      transition: opacity 1s ease, visibility 1s ease;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .envelope {
+      width: 180px;
+      height: 120px;
+      background: #ffd369;
+      position: relative;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .flap {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #ffb703;
+      clip-path: polygon(0 0, 50% 60%, 100% 0);
+      transform-origin: top;
+      transition: transform 1s ease;
+    }
+
+    .open .flap { transform: rotateX(180deg); }
+
+    .container {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 { font-size: 2.2rem; margin-bottom: 10px; }
+    h2 { font-weight: 400; margin-bottom: 20px; opacity: 0.9; }
+
+    .guest { color: #ffd369; font-weight: 600; margin-bottom: 20px; }
+
+    .card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 20px 0;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .countdown {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-top: 10px;
+      color: #ffd369;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 22px;
+      border-radius: 30px;
+      background: #ffd369;
+      color: #000;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    footer { margin-top: 40px; opacity: 0.7; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ORNAMEN -->
+  <img class="ornament mosque" src="https://cdn-icons-png.flaticon.com/512/3176/3176363.png" />
+  <img class="ornament lantern" src="https://cdn-icons-png.flaticon.com/512/3176/3176293.png" />
+
+  <!-- MUSIK TAKBIRAN -->
+  <audio id="takbiran" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5b3f7b1e0f.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- AMPLOP -->
+  <div class="envelope-screen" id="envelopeScreen">
+    <h2>Kepada Yth:</h2>
+    <div class="guest" id="guestName">Tamu Undangan</div>
+    <div class="envelope" id="envelope"><div class="flap"></div></div>
+    <p style="margin-top:15px">Klik amplop untuk membuka undangan</p>
+  </div>
+
+  <!-- KONTEN -->
+  <div class="container" id="content">
+    <h1>Undangan Halal bi Halal</h1>
+    <h2>RT 09 Perum. Klipang Green 2</h2>
+
+    <div class="card">
+      <p><strong>Tanggal:</strong> 11 April 2026</p>
+      <p><strong>Waktu:</strong> 08.00 WIB</p>
+      <p><strong>Lokasi:</strong><br>Jl. Kalimaya Barat, Klipang Green 2 RT 09</p>
+
+      <div class="countdown" id="countdown"></div>
+
+      <a class="btn" href="https://maps.google.com/?q=Jl.+Kalimaya+Barat+Klipang+Green+2" target="_blank">Lihat Lokasi</a>
+    </div>
+
+    <div class="card">
+      <h3>RSVP Kehadiran</h3>
+      <input type="text" id="nama" placeholder="Nama Anda" />
+      <select id="jumlah">
+        <option value="1">1 Orang</option>
+        <option value="2">2 Orang</option>
+        <option value="3">3 Orang</option>
+        <option value="4">4 Orang</option>
+      </select>
+      <button class="btn" onclick="kirimWA()">Kirim Konfirmasi</button>
+    </div>
+
+    <footer>© 2026 Halal bi Halal RT 09 Klipang Green 2</footer>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const guest = params.get('to');
+    if (guest) document.getElementById('guestName').textContent = guest;
+
+    const envelope = document.getElementById('envelope');
+    const screen = document.getElementById('envelopeScreen');
+    const content = document.getElementById('content');
+    const music = document.getElementById('takbiran');
+
+    envelope.addEventListener('click', () => {
+      envelope.classList.add('open');
+      music.play();
+      setTimeout(() => {
+        screen.style.display = 'none';
+        content.style.display = 'block';
+      }, 900);
+    });
+
+    const eventDate = new Date("April 11, 2026 08:00:00").getTime();
+    const countdown = document.getElementById("countdown");
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = eventDate - now;
+      if (diff <= 0) { countdown.innerHTML = "Acara sedang berlangsung"; return; }
+
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff/(1000*60*60))%24);
+      const m = Math.floor((diff/(1000*60))%60);
+      const s = Math.floor((diff/1000)%60);
+
+      countdown.innerHTML = `${d} hari ${h} jam ${m} menit ${s} detik`;
+    }, 1000);
+
+    function kirimWA() {
+      const nama = document.getElementById('nama').value;
+      const jumlah = document.getElementById('jumlah').value;
+      const text = `Konfirmasi kehadiran Halal bi Halal RT 09%0ANama: ${nama}%0AJumlah hadir: ${jumlah} orang`;
+      window.open(`https://wa.me/6280000000000?text=${text}`, '_blank');
+    }
+  </script>
+
+</body>
+</html>
