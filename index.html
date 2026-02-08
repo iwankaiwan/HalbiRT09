@@ -94,7 +94,7 @@
 <body>
 
   <!-- VIDEO PARTICLE BACKGROUND -->
-  <video id="particleVideo" autoplay muted loop playsinline style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:-1;opacity:0.35;">
+  <video id="particleVideo" autoplay muted loop playsinline style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:0;opacity:0.35;">
     <source src="particle.mp4" type="video/mp4">
   </video>
 
@@ -162,12 +162,18 @@
     const opening = document.getElementById('opening');
     const content = document.getElementById('content');
     const music = document.getElementById('bgMusic');
+    const particleVideo = document.getElementById('particleVideo');
 
     // Klik amplop
     envelope.addEventListener('click', () => {
       flap.style.transform = 'rotateX(180deg)';
 
       // play musik
+      // pastikan video particle juga diputar setelah interaksi user
+      if (particleVideo) {
+        particleVideo.play().catch(() => {});
+      }
+
       music.play().catch(() => {});
 
       // fade out opening
