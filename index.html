@@ -151,43 +151,46 @@
     const guest = params.get('to');
     if (guest) document.getElementById('guestName').textContent = guest;
 
-    // Buka amplop + play musik
+    // Elemen penting
     const envelope = document.getElementById('envelope');
     const flap = document.getElementById('flap');
     const opening = document.getElementById('opening');
     const content = document.getElementById('content');
     const music = document.getElementById('bgMusic');
 
+    // Klik amplop
     envelope.addEventListener('click', () => {
       flap.style.transform = 'rotateX(180deg)';
+
+      // play musik
       music.play().catch(() => {});
 
-      // efek fade cinematic
+      // fade out opening
       opening.style.transition = 'opacity 1.2s ease';
       opening.style.opacity = '0';
 
       setTimeout(() => {
         opening.style.display = 'none';
-        content.style.display = 'block';
 
-        // fade in konten
+        // tampilkan konten + fade in
+        content.style.display = 'block';
         content.style.opacity = '0';
         content.style.transition = 'opacity 1.2s ease';
+
         setTimeout(() => {
           content.style.opacity = '1';
         }, 50);
-      }, 900);
-    });
+      }, 1200);
     });
 
     // COUNTDOWN
-    const eventDate = new Date("April 11, 2026 08:00:00").getTime();
-    const countdown = document.getElementById("countdown");
+    const eventDate = new Date('April 11, 2026 08:00:00').getTime();
+    const countdown = document.getElementById('countdown');
 
     setInterval(() => {
       const now = new Date().getTime();
       const diff = eventDate - now;
-      if (diff <= 0) { countdown.innerHTML = "Acara sedang berlangsung"; return; }
+      if (diff <= 0) { countdown.innerHTML = 'Acara sedang berlangsung'; return; }
 
       const d = Math.floor(diff / (1000*60*60*24));
       const h = Math.floor((diff/(1000*60*60))%24);
@@ -205,6 +208,7 @@
       img.onload = () => gallery.appendChild(img);
     }
 
+    // KIRIM WHATSAPP
     function kirimWA() {
       const nama = document.getElementById('nama').value;
       const jumlah = document.getElementById('jumlah').value;
