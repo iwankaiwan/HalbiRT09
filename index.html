@@ -10,10 +10,19 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: url('backgroundhalbi.jpg') center/cover no-repeat fixed, linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+      background: linear-gradient(rgba(15,32,39,0.7), rgba(44,83,100,0.8)), url('backgroundhalbi.jpg') center/cover no-repeat;
       color: white;
       text-align: center;
       overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* OPTIMASI TAMPILAN HP */
+    @media (max-width: 768px) {
+      body {
+        background-position: center top;
+        background-size: cover;
+      }
     }
 
     /* ORNAMEN */
@@ -212,7 +221,7 @@
     <div class="card">
       <h3>Galeri Kegiatan Halal bi Halal</h3>
       <div class="gallery-modern" id="gallery"></div>
-      <p style="opacity:0.7; margin-top:10px; font-size:0.9rem;">Sucikan Hati, Pererat Silaturahmi, Wujudkan RT 09 Yang Harmonis</p>
+      <p style="opacity:0.7; margin-top:10px; font-size:0.9rem;">Kata-Kata Halbi</p>
     </div>
 
     <div class="card">
