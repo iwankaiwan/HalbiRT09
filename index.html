@@ -10,7 +10,7 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(rgba(15,32,39,0.7), rgba(44,83,100,0.8)), url('backgroundhalbi.jpg') center/cover no-repeat;
+      background: linear-gradient(rgba(10,20,30,0.45), rgba(10,20,30,0.65)), url('backgroundhalbi.jpg') center/cover no-repeat;
       color: white;
       text-align: center;
       overflow-x: hidden;
@@ -170,17 +170,28 @@
       to { transform: translateY(-10vh) scale(1); opacity: 0; }
     }
   
+  /* VIDEO PARTICLE OVERLAY (GREEN SCREEN) */
+    .particle-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: screen;
+      opacity: 0.55;
+      pointer-events: none;
+      z-index: 0;
+    }
   </style>
 </head>
 <body>
 
-  
+  <!-- VIDEO PARTICLE GREEN SCREEN -->
+  <video class="particle-video" autoplay muted loop playsinline>
+    <source src="particle.mp4" type="video/mp4">
+  </video>
 
-  <!-- ORNAMEN -->
-  <img class="ornament mosque" src="https://cdn-icons-png.flaticon.com/512/3176/3176363.png" />
-  <img class="ornament lantern" src="https://cdn-icons-png.flaticon.com/512/3176/3176293.png" />
-
-  <!-- MUSIK INSTRUMEN ISLAMIC -->
+    <!-- MUSIK INSTRUMEN ISLAMIC -->
   <audio id="takbiran" loop>
     <source src="halbirt09.mp3" type="audio/mpeg">
   </audio>
