@@ -12,7 +12,7 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(rgba(10,20,30,0.6), rgba(10,20,30,0.75)), url('backgroundhalbi.jpg') center/cover no-repeat fixed;
+      background: linear-gradient(rgba(10,20,30,0.3), rgba(10,20,30,0.5)), url('backgroundhalbi.jpg') center/cover no-repeat fixed;
       color: white;
       text-align: center;
       min-height: 100vh;
@@ -99,7 +99,7 @@
   </audio>
 
   <!-- HALAMAN PEMBUKA AMPLOP -->
-  <div id="opening" style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(rgba(10,20,30,0.7), rgba(10,20,30,0.85)), url('backgroundhalbi.jpg') center/cover no-repeat;z-index:999;text-align:center;padding:20px;">
+  <div id="opening" style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(rgba(10,20,30,0.8), rgba(10,20,30,0.9)), url('backgroundhalbi.jpg') center/cover no-repeat;z-index:999;text-align:center;padding:20px;">
     <h2>Kepada Yth:</h2>
     <div id="guestName" style="color:#ffd369;font-weight:600;margin:10px 0 20px;">Tamu Undangan</div>
 
@@ -162,10 +162,22 @@
       flap.style.transform = 'rotateX(180deg)';
       music.play().catch(() => {});
 
+      // efek fade cinematic
+      opening.style.transition = 'opacity 1.2s ease';
+      opening.style.opacity = '0';
+
       setTimeout(() => {
         opening.style.display = 'none';
         content.style.display = 'block';
+
+        // fade in konten
+        content.style.opacity = '0';
+        content.style.transition = 'opacity 1.2s ease';
+        setTimeout(() => {
+          content.style.opacity = '1';
+        }, 50);
       }, 900);
+    });
     });
 
     // COUNTDOWN
