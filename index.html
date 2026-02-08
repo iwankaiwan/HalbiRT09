@@ -152,19 +152,7 @@
       transform: scale(1.05);
       box-shadow: 0 8px 20px rgba(0,0,0,0.35);
     }
-  /* GEMERLAP CAHAYA */
-    .sparkle {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: rgba(255, 215, 0, 0.8);
-      border-radius: 50%;
-      box-shadow: 0 0 8px rgba(255,215,0,0.9);
-      animation: sparkleMove linear infinite;
-      z-index: 0;
-    }
-
-    @keyframes sparkleMove {
+     @keyframes sparkleMove {
       from { transform: translateY(100vh) scale(0.5); opacity: 0; }
       50% { opacity: 1; }
       to { transform: translateY(-10vh) scale(1); opacity: 0; }
@@ -186,12 +174,7 @@
 </head>
 <body>
 
-  <!-- VIDEO PARTICLE GREEN SCREEN -->
-  <video class="particle-video" autoplay muted loop playsinline>
-    <source src="particle.mp4" type="video/mp4">
-  </video>
-
-    <!-- MUSIK INSTRUMEN ISLAMIC -->
+      <!-- MUSIK INSTRUMEN ISLAMIC -->
   <audio id="takbiran" loop>
     <source src="halbirt09.mp3" type="audio/mpeg">
   </audio>
